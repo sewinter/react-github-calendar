@@ -29,6 +29,7 @@ export type Props = {
   style?: CSSProperties;
   theme?: Theme;
   years?: number[];
+  onFetchGraphs?: (graphs: GraphData[]) => void;
 };
 
 const GitHubCalendar: React.FC<Props> = ({
@@ -43,6 +44,7 @@ const GitHubCalendar: React.FC<Props> = ({
   username,
   style = {},
   years = [Number(format(new Date(), 'yyyy'))],
+  onFetchGraphs,
 }) => {
   const [graphs, setGraphs] = useState<GraphData[] | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -58,7 +60,10 @@ const GitHubCalendar: React.FC<Props> = ({
       username,
       fullYear,
     })
-      .then(graphs => setGraphs(graphs))
+      .then((graphs) => {
+        onFetchGraphs?.(graphs);
+        setGraphs(graphs);
+      })
       .catch((error: Error) => setError(error));
   }, [years, username, fullYear]);
 
@@ -72,7 +77,7 @@ const GitHubCalendar: React.FC<Props> = ({
     if (
       prevFullYear !== fullYear ||
       prevUsername !== username ||
-      prevYears.some(y => !years.includes(y))
+      prevYears.some((y) => !years.includes(y))
     ) {
       fetchData();
     }
@@ -137,7 +142,7 @@ const GitHubCalendar: React.FC<Props> = ({
       monthLabels.shift();
     }
 
-    return monthLabels.map(month => (
+    return monthLabels.map((month) => (
       <text x={(blockSize + blockMargin) * month.x} y={fontSize} key={month.x} style={style}>
         {month.label}
       </text>
@@ -149,7 +154,7 @@ const GitHubCalendar: React.FC<Props> = ({
     const textHeight = Math.round(fontSize * LINE_HEIGHT);
 
     return blocks
-      .map(week =>
+      .map((week) =>
         week.map((day, y) => (
           <rect
             x="0"
@@ -196,7 +201,7 @@ const GitHubCalendar: React.FC<Props> = ({
   return (
     <article className={NAMESPACE} style={style}>
       {renderTitle()}
-      {graphs.map(graph => {
+      {graphs.map((graph) => {
         const { year, blocks, monthLabels, totalCount } = graph;
 
         return (

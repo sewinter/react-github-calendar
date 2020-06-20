@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react';
 import { ColorInput } from 'tinycolor2';
+import { GraphData } from './services/contributions';
 
 export type Props = {
   username: string;
@@ -12,6 +13,7 @@ export type Props = {
   style?: CSSProperties;
   theme?: Theme;
   years?: number[];
+  onFetchGraphs?: (graphs: GraphData[]) => void;
 };
 
 export type Theme = {
