@@ -14,6 +14,7 @@ export type Props = {
   theme?: Theme;
   years?: number[];
   onFetchGraphs?: (graphs: GraphData[]) => void;
+  Loader?: React.ReactNode;
 };
 
 export type Theme = {
