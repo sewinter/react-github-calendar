@@ -111,25 +111,6 @@ const GitHubCalendar: React.FC<Props> = ({
     return `<strong>${day.info.count} contributions</strong> on ${format(date, dateFormat)}`;
   }
 
-  function renderTitle() {
-    const style = {
-      borderBottom: `2px solid ${getTheme().grade0}`,
-      fontSize: `${Math.round(fontSize * TITLE_SCALE_FACTOR)}px`,
-    };
-
-    return (
-      <div className={getClassName('title', styles.title)} style={style}>
-        <a
-          href={`https://github.com/${username}`}
-          title="GitHub profile"
-          style={{ color: 'inherit' }}
-        >
-          @{username} on GitHub
-        </a>
-      </div>
-    );
-  }
-
   function renderMonthLabels(monthLabels: GraphData['monthLabels']) {
     const style = {
       fill: getTheme().text,
@@ -187,7 +168,6 @@ const GitHubCalendar: React.FC<Props> = ({
 
   return (
     <article className={NAMESPACE} style={style}>
-      {renderTitle()}
       {graphs.map((graph) => {
         const { year, blocks, monthLabels, totalCount } = graph;
 
