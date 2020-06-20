@@ -174,19 +174,6 @@ const GitHubCalendar: React.FC<Props> = ({
       ));
   }
 
-  function renderMeta(year: number, totalCount: number) {
-    const isCurrentYear = getYear(new Date()) === year;
-
-    return (
-      <div className={getClassName('meta')} style={{ fontSize }}>
-        {isCurrentYear && fullYear ? 'Last year' : year}
-        {' – '}
-        {isCurrentYear && !fullYear ? 'So far ' : null}
-        {totalCount} contributions
-      </div>
-    );
-  }
-
   const { width, height } = getDimensions();
 
   if (error) {
@@ -217,8 +204,6 @@ const GitHubCalendar: React.FC<Props> = ({
               {renderMonthLabels(monthLabels)}
               {renderBlocks(blocks)}
             </svg>
-
-            {renderMeta(year, totalCount)}
             {children}
           </div>
         );
