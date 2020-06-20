@@ -61,16 +61,11 @@ const GitHubCalendar: React.FC<Props> = ({
       username,
       lastYear: fullYear,
     })
-<<<<<<< HEAD
-      .then(setGraphs)
-      .catch(setError);
-=======
-      .then((graphs) => {
+      .then(graphs => {
         onFetchGraphs?.(graphs);
         setGraphs(graphs);
       })
-      .catch((error: Error) => setError(error));
->>>>>>> add onFetchGraphs
+      .catch(setError);
   }, [years, username, fullYear]);
 
   // Fetch data on mount
@@ -83,7 +78,7 @@ const GitHubCalendar: React.FC<Props> = ({
     if (
       prevFullYear !== fullYear ||
       prevUsername !== username ||
-      prevYears.some((y) => !years.includes(y))
+      prevYears.some(y => !years.includes(y))
     ) {
       fetchData();
     }
@@ -129,7 +124,7 @@ const GitHubCalendar: React.FC<Props> = ({
       monthLabels.shift();
     }
 
-    return monthLabels.map((month) => (
+    return monthLabels.map(month => (
       <text x={(blockSize + blockMargin) * month.x} y={fontSize} key={month.x} style={style}>
         {month.label}
       </text>
@@ -141,7 +136,7 @@ const GitHubCalendar: React.FC<Props> = ({
     const textHeight = Math.round(fontSize * LINE_HEIGHT);
 
     return blocks
-      .map((week) =>
+      .map(week =>
         week.map((day, y) => (
           <rect
             x="0"
@@ -188,7 +183,7 @@ const GitHubCalendar: React.FC<Props> = ({
   return (
     <article className={NAMESPACE} style={style}>
       {renderTitle()}
-      {graphs.map((graph) => {
+      {graphs.map(graph => {
         const { year, blocks, monthLabels, totalCount } = graph;
 
         return (
