@@ -1,7 +1,6 @@
 import React, { useState, CSSProperties, useEffect, useCallback } from 'react';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
-import getYear from 'date-fns/getYear';
 import { ColorInput } from 'tinycolor2';
 
 import styles from './styles.css';
@@ -30,6 +29,7 @@ export type Props = {
   theme?: Theme;
   years?: number[];
   onFetchGraphs?: (graphs: GraphData[]) => void;
+  Loader?: React.ReactNode;
 };
 
 const GitHubCalendar: React.FC<Props> = ({
@@ -46,6 +46,7 @@ const GitHubCalendar: React.FC<Props> = ({
   theme = undefined,
   years = [Number(format(new Date(), 'yyyy'))],
   onFetchGraphs,
+  Loader,
 }) => {
   const [graphs, setGraphs] = useState<Array<GraphData> | null>(null);
   const [error, setError] = useState<Error | null>(null);
@@ -177,7 +178,11 @@ const GitHubCalendar: React.FC<Props> = ({
   }
 
   if (!graphs) {
-    return <div className={getClassName('loading', styles.loading)}>Loading …</div>;
+    return Loader ? (
+      Loader
+    ) : (
+      <div className={getClassName('loading', styles.loading)}>Loading …</div>
+    );
   }
 
   return (
