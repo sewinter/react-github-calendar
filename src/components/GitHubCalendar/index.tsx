@@ -183,6 +183,7 @@ const GitHubCalendar: React.FC<Props> = ({
   return (
     <article className={NAMESPACE} style={style}>
       {renderTitle()}
+
       {graphs.map(graph => {
         const { year, blocks, monthLabels, totalCount } = graph;
 
