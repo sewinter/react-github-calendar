@@ -1,6 +1,7 @@
 import React, { useState, CSSProperties, useEffect, useCallback } from 'react';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
+import getYear from 'date-fns/getYear';
 import { ColorInput } from 'tinycolor2';
 
 import styles from './styles.css';
@@ -187,8 +188,6 @@ const GitHubCalendar: React.FC<Props> = ({
 
   return (
     <article className={NAMESPACE} style={style}>
-      {renderTitle()}
-
       {graphs.map(graph => {
         const { year, blocks, monthLabels, totalCount } = graph;
 
